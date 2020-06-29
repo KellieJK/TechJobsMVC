@@ -19,11 +19,10 @@
 
 
         <td>
-
+            <li>
            
-                <a asp-controller="List" asp-action="Jobs" asp-route-column="all"
-                   asp-route-value="all">all</a>
-           
+                <a asp-controller="List" asp-action="Jobs" asp-route-column="All" asp-route-value="All">All</a>
+            </li>
 
         </td>
         @* Feel free to remove or modify this element if necessary. *@
@@ -37,8 +36,7 @@
                     {
 
                         <li>
-                            <a asp-controller="List" asp-action="Jobs" asp-route-column="@category.Key"
-                               asp-route-value="@item">@item</a>
+                            <a asp-controller="List" asp-action="Jobs" asp-route-column="@category.Key" asp-route-value="@item">@item</a>
                         </li>
                     }
                 </ul>

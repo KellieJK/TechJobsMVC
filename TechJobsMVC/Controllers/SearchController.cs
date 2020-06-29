@@ -24,15 +24,12 @@ namespace TechJobsMVC.Controllers
         [HttpPost]
         //[Route("/Events/Add")]
         public IActionResult Jobs(string searchType, string searchTerm)
-        {
-            List<Job> jobs = new List<Job>();
-            if(String.IsNullOrEmpty(searchTerm))
-            {
-                ViewBag.jobs = jobs;
-            }
+        { 
+          List<Job> jobs = new List<Job>();
           jobs = JobData.FindByValue(searchTerm);
-          List<Job> results = new List<Job>();    
-          if(searchType.ToLower() == "employer")
+          List<Job> results = new List<Job>();
+          
+            if (searchType.ToLower() == "employer")
             {
                 foreach(Job job in jobs)
                 {
@@ -52,10 +49,41 @@ namespace TechJobsMVC.Controllers
                     }
                 }
             }
+            else if (searchType.ToLower() == "positionType")
+            {
+                foreach (Job job in jobs)
+                {
+                    if (job.PositionType.ToString().ToLower().Contains(searchTerm.ToLower()))
+                    {
+                        results.Add(job);
+                    }
+                }
+            }
+            else if (searchType.ToLower() == "coreCompetency")
+            {
+                foreach (Job job in jobs)
+                {
+                    if (job.CoreCompetency.ToString().ToLower().Contains(searchTerm.ToLower()))
+                    {
+                        results.Add(job);
+                    }
+                }
+            }
+            else if (String.IsNullOrEmpty(searchTerm))
+            {
+                var emptyJobs = JobData.FindAll();
+                foreach (Job job in jobs)
+                {
+                    return emptyJobs.ToString();
+                }
+                    
+                   
+            } 
             else
             {
                 results = jobs;
             }
+
           ViewBag.jobs = results;
           return View();
         }

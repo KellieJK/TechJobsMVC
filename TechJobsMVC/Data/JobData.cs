@@ -12,7 +12,7 @@ namespace TechJobsMVC.Data
 
         static bool IsDataLoaded = false;
 
-        static List<Job> AllJobs;
+        static public List<Job> AllJobs;
         static private List<JobField> AllEmployers = new List<JobField>();
         static private List<JobField> AllLocations = new List<JobField>();
         static private List<JobField> AllPositionTypes = new List<JobField>();
