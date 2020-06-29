@@ -21,61 +21,19 @@ namespace TechJobsMVC.Controllers
 
         // TODO #3: Create an action method to process a search request and render the updated search view. 
 
-        [HttpPost]
-        //[Route("/Events/Add")]
-        public IActionResult Jobs(string searchType, string searchTerm)
+     public IActionResult Results(string searchType, string searchTerm)
         {
-            List<Job> jobs = new List<Job>();
-            jobs = JobData.FindByValue(searchTerm);
-            List<Job> results = new List<Job>();
-
-            if (searchType.ToLower() == "employer")
+            ViewBag.columns = ListController.ColumnChoices;
+            List<Job> jobs;
+            if (string.IsNullOrEmpty(searchTerm) )
             {
-                foreach (Job job in jobs)
-                {
-                    if (job.Employer.ToString().ToLower().Contains(searchTerm.ToLower()))
-                    {
-                        results.Add(job);
-                    }
-                }
+                jobs = JobData.FindAll();
             }
-            else if (searchType.ToLower() == "location")
-            {
-                foreach (Job job in jobs)
-                {
-                    if (job.Location.ToString().ToLower().Contains(searchTerm.ToLower()))
-                    {
-                        results.Add(job);
-                    }
-                }
-            }
-            else if (searchType.ToLower() == "positionType")
-            {
-                foreach (Job job in jobs)
-                {
-                    if (job.PositionType.ToString().ToLower().Contains(searchTerm.ToLower()))
-                    {
-                        results.Add(job);
-                    }
-                }
-            }
-            else if (searchType.ToLower() == "coreCompetency")
-            {
-                foreach (Job job in jobs)
-                {
-                    if (job.CoreCompetency.ToString().ToLower().Contains(searchTerm.ToLower()))
-                    {
-                        results.Add(job);
-                    }
-                }
-            }
-       
             else
             {
-                results = jobs;
+                jobs = JobData.FindByColumnAndValue(searchType, searchTerm);
             }
-
-            ViewBag.jobs = results;
+            ViewBag.jobs = jobs;
             return View();
         }
     }
