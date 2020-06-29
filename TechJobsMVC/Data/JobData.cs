@@ -121,6 +121,11 @@ namespace TechJobsMVC.Data
             return jobs;
         }
 
+        static public object FindAll(string searchTerm)
+        {
+            throw new NotImplementedException();
+        }
+
         static private object FindExistingObject(List<JobField> fieldlist, string value)
         {
             foreach (object item in fieldlist)

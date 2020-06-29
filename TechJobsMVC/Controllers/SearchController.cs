@@ -24,22 +24,22 @@ namespace TechJobsMVC.Controllers
         [HttpPost]
         //[Route("/Events/Add")]
         public IActionResult Jobs(string searchType, string searchTerm)
-        { 
-          List<Job> jobs = new List<Job>();
-          jobs = JobData.FindByValue(searchTerm);
-          List<Job> results = new List<Job>();
-          
+        {
+            List<Job> jobs = new List<Job>();
+            jobs = JobData.FindByValue(searchTerm);
+            List<Job> results = new List<Job>();
+
             if (searchType.ToLower() == "employer")
             {
-                foreach(Job job in jobs)
+                foreach (Job job in jobs)
                 {
-                    if(job.Employer.ToString().ToLower().Contains(searchTerm.ToLower()))
+                    if (job.Employer.ToString().ToLower().Contains(searchTerm.ToLower()))
                     {
                         results.Add(job);
                     }
-                 }
-          }
-           else if (searchType.ToLower() == "location")
+                }
+            }
+            else if (searchType.ToLower() == "location")
             {
                 foreach (Job job in jobs)
                 {
@@ -69,23 +69,14 @@ namespace TechJobsMVC.Controllers
                     }
                 }
             }
-            else if (String.IsNullOrEmpty(searchTerm))
-            {
-                var emptyJobs = JobData.FindAll();
-                foreach (Job job in jobs)
-                {
-                    return emptyJobs.ToString();
-                }
-                    
-                   
-            } 
+       
             else
             {
                 results = jobs;
             }
 
-          ViewBag.jobs = results;
-          return View();
+            ViewBag.jobs = results;
+            return View();
         }
     }
 
